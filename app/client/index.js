@@ -1,34 +1,55 @@
+Router.route('/', {
+	name: 'home',
+    template: 'home'
+});
 
-Session.setDefault('latestBlock', {});
-
-
-Template['blockchainStatus'].helpers({
-    currentBlock: function () {
-        return JSON.stringify(Session.get('latestBlock'), null, 2);
-    }
+Router.configure({
+    layoutTemplate: 'main'
 });
 
 
-Template['deposits'].helpers({
-    deposits: function () {
-        return Deposits.find({},{sort: {blockNumber: -1}});
-    },
-    value: function(){
-        return web3.fromWei(this.value, 'ether') + ' ether';
+Router.route('/register');
+Router.route('/login');
+
+Template.register.events({
+    'submit form': function(){
+		event.preventDefault();
+        var email = $('[name=email]').val();
+        var password = $('[name=password]').val();
+        Accounts.createUser({
+			email: email,
+			password: password
+		}, function(error){
+			if(error){
+				console.log(error.reason); // Output error if registration fails
+			} else {
+				Router.go("home"); // Redirect user if registration succeeds
+			}
+		});
+
     }
 });
 
+Template.navigation.events({
+    'click .logout': function(event){
+        event.preventDefault();
+        Meteor.logout();
+        Router.go('login');
+    }
+});
 
-Template['guessNumber'].events({
-    'click button.guess': function (e, template) {
-        alert(template.find('input').value +' is '+ GuessNumberInstance.guessNumber(template.find('input').value));
-        template.find('input').value = '';
-    },
-    'click button.set': function (e, template) {
-        GuessNumberInstance.setNumber(template.find('input').value, {from: web3.eth.accounts[0], gas: 50000});
-        template.find('input').value = '';
-    },
-    'click a.switch': function (e, template) {
-        TemplateVar.set('setNumber', !TemplateVar.get('setNumber'));
+Template.login.events({
+    'submit form': function(event){
+        event.preventDefault();
+        var email = $('[name=email]').val();
+        var password = $('[name=password]').val();
+        Meteor.loginWithPassword(email, password, function(error){
+			if(error){
+				console.log(error.reason);
+			} else {
+				Router.go("home");
+			}
+		});
+
     }
 });
