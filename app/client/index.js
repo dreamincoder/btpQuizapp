@@ -1,3 +1,4 @@
+
 Router.route('/', {
 	name: 'home',
     template: 'home'
@@ -26,8 +27,8 @@ Template.register.events({
 				console.log(error.reason); // Output error if registration fails
 			} else {
 				console.log("Trying to add ");
-				QuizInstance.addStudent(username, {from: web3.eth.accounts[0], gas: 50000});
-				conole.log("Account " + username + " created");
+				QuizInstance.addStudent(username, {from: web3.eth.accounts[0], gas: 500000});
+				console.log("Account " + username + " created");
 				Router.go("home"); // Redirect user if registration succeeds
 			}
 		});
@@ -62,9 +63,13 @@ Template.login.events({
 Template.question.events({
 	'submit form': function(e,template){
         //~ event.preventDefault();
-        console.log("Answer is " + template.find('input').value);
-        if( !QuizInstance.checkIfAnswered(currentUser, template.find('input').value) ){
-			QuizInstance.storeAnswer(currentUser, {from: web3.eth.accounts[0], gas: 50000});
+        var username = Meteor.user().username;
+        var answer = template.find('input').value;
+       	console.log("Answer is " + answer);
+        if(!QuizInstance.checkIfAnswered(username)) {
+        	console.log("Answering");
+			QuizInstance.storeAnswer(username, answer, {from: web3.eth.accounts[0], gas: 500000});
+			console.log("Answered");
 		}
 		else{
 			alert("You have already alswered the question");
@@ -72,3 +77,4 @@ Template.question.events({
 
     }
 });
+

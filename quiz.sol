@@ -1,30 +1,37 @@
 contract Quiz {
     event Deposit(address from, uint value);
-    uint8[] public allStudents;
+    bytes32[] public allStudents;
 
     struct response {
         bool answered;
         string answer;
     }
-    mapping(uint8 => response) public answers;
+    mapping(bytes32 => response) public answers;
 
     function() {
         if (msg.value > 0)
             Deposit(msg.sender, msg.value);
     }
 
-    function addStudent(uint8 name) {
+    function addStudent (bytes32 name) {
         answers[name].answered = false;
         allStudents.push(name);
     }
 
-    function checkIfAnswered(uint8 name) constant returns (bool) {
+    function checkIfAnswered(bytes32 name) constant returns (bool) {
         return answers[name].answered;
     }
 
-    function storeAnswer(uint8 name, string ans) {
+    function storeAnswer(bytes32 name, string ans) {
         answers[name].answer = ans;
         answers[name].answered = true;
     }
+    
+    function getAnswer(bytes32 name) constant returns(string) {
+        return answers[name].answer;
+    }
+    
+    function getStudents() constant returns (bytes32 []) {
+        return allStudents;
+    }
 }
-
