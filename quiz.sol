@@ -4,7 +4,7 @@ contract Quiz {
 
     struct response {
         bool answered;
-        uint8 answer;
+        string answer;
     }
     mapping(uint8 => response) public answers;
 
@@ -18,11 +18,11 @@ contract Quiz {
         allStudents.push(name);
     }
 
-    function checkIfNotAnswered(uint8 name) constant returns (bool) {
+    function checkIfAnswered(uint8 name) constant returns (bool) {
         return answers[name].answered;
     }
 
-    function storeAnswer(uint8 name, uint8 ans) {
+    function storeAnswer(uint8 name, string ans) {
         answers[name].answer = ans;
         answers[name].answered = true;
     }
