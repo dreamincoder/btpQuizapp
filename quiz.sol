@@ -26,11 +26,11 @@ contract Quiz {
         answers[name].answer = ans;
         answers[name].answered = true;
     }
-    
+
     function getAnswer(bytes32 name) constant returns(string) {
         return answers[name].answer;
     }
-    
+
     function getStudents() constant returns (bytes32 []) {
         return allStudents;
     }
