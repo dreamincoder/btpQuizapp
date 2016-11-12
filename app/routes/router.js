@@ -17,3 +17,8 @@ Router.route('/register', {
   template: 'register'
 });
 
+Router.route('/instructorhome', {
+  name: 'instructorhome',
+  template: 'instructorhome'
+});
+
