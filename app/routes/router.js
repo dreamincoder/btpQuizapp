@@ -22,3 +22,8 @@ Router.route('/instructorhome', {
   template: 'instructorhome'
 });
 
+Router.route('/studenthome', {
+  name: 'studenthome',
+  template: 'studenthome'
+});
+
