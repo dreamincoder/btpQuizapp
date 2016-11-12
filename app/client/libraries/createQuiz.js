@@ -1,3 +1,5 @@
+Meteor.subscribe('quizzes');
+
 var quesNumber = 1;
 function increment(){
 	quesNumber += 1;
@@ -16,6 +18,52 @@ Template.createQuiz.events({
       var element_to_remove = document.getElementById(elementId);
       document.getElementById('questions').removeChild(element_to_remove);
       updateLabels();
+    },
+    'submit form': function(event){
+        event.preventDefault();
+
+        //array containing all questions
+        var questions = document.getElementsByClassName('questionDiv');
+
+        //structure to be stored
+        var quiz = {
+        	'quizContractID': '',
+        	'name': '',
+        	'description': '',
+        	'instructor': '',
+        	'start': false,
+        	'end': false,
+        	'questions': [],
+        	'studentsAttempted': []
+        }
+
+        //structure of a single question
+        var question = {
+        	'question': '',
+        	'options': [],
+        	'answer': ''
+        }
+
+        for(var i=0;i<questions.length;i++){
+        	question['question'] = questions[i].getElementsByClassName('question')[0].value;
+        	var options = ["A","B","C","D"];
+        	for(var j=0;j<4;j++){
+        		options[j] = questions[i].getElementsByClassName('option')[j].value;
+        	}
+        	question['options'] = options;
+        	question['answer'] = questions[i].getElementsByClassName('answer')[0].value;
+        	quiz['questions'].push(question);
+        }
+        console.log(JSON.stringify(quiz));
+
+        Meteor.call('storeQuiz', quiz, function(err, result) {
+        	if(err){
+        		console.log(err.reason);
+        	}
+        	else{
+        		Router.go("createQuiz");
+        	}	
+        });
     }
 });
 
@@ -34,13 +82,13 @@ function updateLabels(){
 function addQuestion(){
 	var mainId = "questionDiv-"+quesNumber;
 	var new_question = document.createElement("div");
-	new_question.className = "form-group";
+	new_question.className = "questionDiv form-group";
 	new_question.id = mainId;
 	document.getElementById('questions').appendChild(new_question);
 
 	new_question = document.createElement("div");
 	new_question.className = "form-group";
-	new_question.innerHTML = '<label class="quesLabel">' + quesNumber + '</label><input id="question-' + quesNumber + '" type="text" value="" maxlength="100" placeholder="Enter the question"/>';
+	new_question.innerHTML = '<label class="quesLabel">' + quesNumber + '</label><input class="question" type="text" value="" maxlength="100" placeholder="Enter the question"/>';
 	document.getElementById(mainId).appendChild(new_question);
 
 	new_question = document.createElement("div");
@@ -49,26 +97,18 @@ function addQuestion(){
 	document.getElementById(mainId).appendChild(new_question);
 
 	mainId = "container-"+quesNumber;
+	
+	var arr = ['A','B','C','D'];
+	for(var i=0;i<4;i++){
+		var new_option = document.createElement("div");
+		new_option.className = "form-group";
+		new_option.innerHTML = '<label>' + arr[i] +') </label><input class="option" type="text" value="" maxlength="20" placeholder="Option ' + arr[i] +'"/>';
+		document.getElementById(mainId).appendChild(new_option);
+	}
 	var new_option = document.createElement("div");
 	new_option.className = "form-group";
-	new_option.innerHTML = '<label>A) </label><input id="ques-' + quesNumber + '-option-A" type="text" value="" maxlength="20" placeholder="Option A"/>';
+	new_option.innerHTML = '<label>Answer) </label><input class="answer" type="text" value="" maxlength="20" placeholder="Answer"/>';
 	document.getElementById(mainId).appendChild(new_option);
-
-
-	new_option = document.createElement("div");
-	new_option.className = "form-group";
-	new_option.innerHTML = '<label>B) </label><input id="ques-' + quesNumber + '-option-B" type="text" value="" maxlength="20" placeholder="Option B"/>';
-	document.getElementById(mainId).appendChild(new_option);	
-
-	new_option = document.createElement("div");
-	new_option.className = "form-group";
-	new_option.innerHTML = '<label>C) </label><input id="ques-' + quesNumber + '-option-C" type="text" value="" maxlength="20" placeholder="Option C"/>';
-	document.getElementById(mainId).appendChild(new_option);	
-
-	new_option = document.createElement("div");
-	new_option.className = "form-group";
-	new_option.innerHTML = '<label>D) </label><input id="ques-' + quesNumber + '-option-D" type="text" value="" maxlength="20" placeholder="Option D"/>';
-	document.getElementById(mainId).appendChild(new_option);	
 
 	new_option = document.createElement("div");
 	new_option.className = "form-group";
@@ -76,46 +116,6 @@ function addQuestion(){
 	document.getElementById(mainId).appendChild(new_option);
 
 	increment();
-
-	// var r = document.createElement('span');
-	// var y = document.createElement("TEXTAREA");
-	// y.setAttribute("cols", "17");
-	// y.setAttribute("placeholder", "Enter the question..");
-
-	// var g = document.createElement("BUTTON");
-	// var text = document.createTextNode("REMOVE");
-	// g.appendChild(text);
-	// g.setAttribute("class", "removeQues btn btn-danger");
-	
-	// var a = document.createElement("INPUT");
-	// a.setAttribute("type", "text");
-	// a.setAttribute("placeholder", "Option A");
-
-	// var b = document.createElement("INPUT");
-	// b.setAttribute("type", "text");
-	// b.setAttribute("placeholder", "Option B");
-
-	// var c = document.createElement("INPUT");
-	// c.setAttribute("type", "text");
-	// c.setAttribute("placeholder", "Option C");
-
-	// var d = document.createElement("INPUT");
-	// d.setAttribute("type", "text");
-	// d.setAttribute("placeholder", "Option D");
-
-	// increment();
-	// y.setAttribute("Name", "textelement_" + i);
-	// r.appendChild(y);
-	// g.setAttribute("onclick", "removeElement('myForm','id_" + i + "')");
-	// r.appendChild(g);
-
-	// r.appendChild(a);
-	// r.appendChild(b);
-	// r.appendChild(c);
-	// r.appendChild(d);
-
-	// r.setAttribute("id", "id_" + i);
-	// document.getElementById("myForm").appendChild(r);
 }
 
 function removeElement(parentDiv, childDiv){
@@ -132,3 +132,4 @@ function removeElement(parentDiv, childDiv){
 		return false;
 	}
 }
+

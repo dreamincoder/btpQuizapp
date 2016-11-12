@@ -1,3 +1,5 @@
+Meteor.subscribe('quizzes');
+
 var createUser = function (username, password, category) {
     console.log("createUser called with " + username + password + category);
     Meteor.call('createNewUser', username, password, category, function (err, result) {
