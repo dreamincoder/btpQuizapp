@@ -9,7 +9,7 @@
 		      <ul class="nav navbar-nav">
 		        <li><a href="#">{{currentUser.username}}</a></li>
 		        {{#if isProf currentUser.profile.category}}
-			        <li><a href="#">Create Quiz</a></li>
+			        <li><a href="{{pathFor route='createQuiz'}}">Create Quiz</a></li>
 			        <li><a href="#">Check Answers</a></li>
 			        <li><a href="{{pathFor route='instructorhome'}}">instructorhome</a></li>
 			      {{else}}

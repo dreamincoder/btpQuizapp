@@ -25,3 +25,4 @@ accounts-password
 accounts-ui
 iron:router
 twbs:bootstrap
+silentcicero:ethereumjs-accounts

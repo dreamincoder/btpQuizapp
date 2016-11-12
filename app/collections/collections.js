@@ -1,1 +1,1 @@
-questions = new Mongo.Collection('questions');
+quizzes = new Mongo.Collection('quizzes');

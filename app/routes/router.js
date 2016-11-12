@@ -27,3 +27,7 @@ Router.route('/studenthome', {
   template: 'studenthome'
 });
 
+Router.route('/createQuiz', {
+  name: 'createQuiz',
+  template: 'createQuiz'
+});

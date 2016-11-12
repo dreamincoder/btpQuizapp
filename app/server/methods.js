@@ -1,4 +1,6 @@
-'use strict';
+Meteor.publish('quizzes', function () {
+    return quizzes.find();
+});
 
 Meteor.methods({
     createNewUser: function (username, password, category) {
@@ -27,6 +29,10 @@ Meteor.methods({
                 }
             })
         ) ? true : false;
+    },
+
+    storeQuiz: function(quiz) {
+        return quizzes.insert(quiz);
     }
 
 });
