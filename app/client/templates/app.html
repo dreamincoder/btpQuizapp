@@ -1,0 +1,12 @@
+<template name="app">
+	{{#if currentUser}}
+			{{#if isProf currentUser.profile.category}}
+				You are a prof.
+			{{else}}
+				You are a student
+			{{/if}}
+	{{else}}
+		WElcome to quiz app.. Add some random things here.
+	{{/if}}
+
+</template>

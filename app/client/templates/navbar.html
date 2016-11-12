@@ -1,0 +1,33 @@
+<template name="navigation">
+	<nav class="navbar navbar-inverse">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <a  class="navbar-brand" href="#">Quiz App</a>
+	    </div>
+	    <div>
+	      {{#if currentUser}}
+		      <ul class="nav navbar-nav">
+		        <li><a href="#">{{currentUser.username}}</a></li>
+		        {{#if isProf currentUser.profile.category}}
+			        <li><a href="#">Create Quiz</a></li>
+			        <li><a href="#">Check Answers</a></li>
+			      {{else}}
+			        <li><a href="#">Quizzes</a></li>
+			        <li><a href="#">Check</a></li>
+			      {{/if}}
+		      </ul>
+		  	{{/if}}
+
+	      <ul class="nav navbar-nav navbar-right">
+	        {{#if currentUser}}
+						<li><a href="#" class="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+					{{else}}
+						<li><a href="{{pathFor route='login'}}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+						<li><a href="{{pathFor route='register'}}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+					{{/if}}
+	      </ul>
+	    </div>
+	  </div>
+	</nav>
+	{{> yield}}
+</template>
