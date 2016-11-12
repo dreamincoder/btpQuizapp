@@ -17,3 +17,7 @@ Router.route('/register', {
   template: 'register'
 });
 
+Router.route('/createQuiz', {
+  name: 'createQuiz',
+  template: 'createQuiz'
+});

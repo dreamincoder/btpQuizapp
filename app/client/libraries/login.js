@@ -4,7 +4,7 @@ var createUser = function (username, password, category) {
         if (err) {
         	console.log(err.reason);    
         } else {
-        	Router.go("app");
+        	Router.go("login");
         }
     });
 };
