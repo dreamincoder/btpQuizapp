@@ -62,7 +62,7 @@ Template.createQuiz.events({
         	}
         	else{
         		Router.go("createQuiz");
-        	}	
+        	}
         });
     }
 });

@@ -35,4 +35,6 @@ Meteor.methods({
         return quizzes.insert(quiz);
     }
 
+
+
 });
