@@ -17,6 +17,16 @@ Router.route('/register', {
   template: 'register'
 });
 
+Router.route('/instructorhome', {
+  name: 'instructorhome',
+  template: 'instructorhome'
+});
+
+Router.route('/studenthome', {
+  name: 'studenthome',
+  template: 'studenthome'
+});
+
 Router.route('/createQuiz', {
   name: 'createQuiz',
   template: 'createQuiz'
