@@ -1,9 +1,15 @@
-function getQuiz(){
-	
-}
+Meteor.subscribe('quizzes');
+
+// var accounts = new Accounts("abcdefgh");
+// console.log(accounts);
 
 function displayQuiz(){
-	var questions = getQuiz();
+	var quiz = quizzes.findOne({});
+	var questions = quiz['questions'];
+	
+	console.log(quiz);
+	console.log(questions);
+	console.log(questions);
 	for(var i=1;i<=questions.length;i++){
 		var mainId = "questions";
 
@@ -18,12 +24,6 @@ function displayQuiz(){
 		document.getElementById(mainId).appendChild(new_question);
 
 		mainId = "container-"+i;
-		
-		<div class="form-group">
-			<label for="category">Category :</label>
-			<label class="radio-inline"><input type="radio" name="category" value="student" checked>Student</label>
-			<label class="radio-inline"><input type="radio" name="category" value="prof">Prof</label>
-		</div>
 
 		var arr = ['A','B','C','D'];
 		for(var j=0;j<4;j++){
@@ -33,5 +33,17 @@ function displayQuiz(){
 			document.getElementById(mainId).appendChild(new_option);
 		}
 	}
-
 }
+
+Template.answerQuiz.helpers({
+});
+
+Template.answerQuiz.events({
+	'click .showquiz': function(event){
+		event.preventDefault();
+		console.log("event called");
+		displayQuiz();
+  }
+});
+
+
