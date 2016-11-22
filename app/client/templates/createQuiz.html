@@ -3,16 +3,22 @@
 		<div class="col-md-6">
 			<h2>Create Quiz</h2>
 			<form role="form">
-				<button type="submit" class="btn btn-default" value="create">Create Quiz</button>
+				<div class="form-group">
+					<label>Quiz Name:</label>  
+					<input type="text" class="quizname form-control" placeholder="Quiz Name"><br>
+				</div>
+				<div class="form-group">
+					<label>Quiz Description :</label> 
+					<input type="text" class="description form-control" placeholder="Quiz Description"><br>
+				</div>
 				<div id="questions">
 					
 				</div>
 				<button class="addNew btn btn-success">Add Question</button>
+				<br />
+				<br />
+				<button type="submit" class="btn btn-primary" value="create">Create Quiz</button>
 			</form>
 		</div>
 	</div>
-
-
-	
-
 </template>

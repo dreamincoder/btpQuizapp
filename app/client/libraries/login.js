@@ -19,7 +19,7 @@ var loginUser = function (username, password, category) {
 						if(error){
 							console.log(error.reason);
 						} else {
-							Router.go("app");
+							Router.go("instructorhome");
 						}
 					});
 

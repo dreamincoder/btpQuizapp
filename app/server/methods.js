@@ -33,8 +33,23 @@ Meteor.methods({
 
     storeQuiz: function(quiz) {
         return quizzes.insert(quiz);
+    },
+
+    getActiveQuizzes: function(instrName) {
+        return quizzes.find({instructor: instrName, end: false}).fetch();
+    },
+
+    getInactiveQuizzes: function(instrName) {
+        return quizzes.find({instructor: instrName, end: true}).fetch();
+    },
+
+    endQuiz: function(instrName, quizName) {
+        var entry = quizzes.findOne({instructor: instrName, quizname: quizName});
+        quizzes.update({_id: entry._id},{$set:{end : true}});
+    },
+
+    submitQuiz: function(student, quizName) {
+        var entry = quizzes.findOne({quizname: quizName});
+        quizzes.update({_id: entry._id},{$push: {studentsAttempted: student}});
     }
-
-
-
 });

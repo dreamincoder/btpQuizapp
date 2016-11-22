@@ -31,3 +31,12 @@ Router.route('/createQuiz', {
   name: 'createQuiz',
   template: 'createQuiz'
 });
+
+Router.route('/answerQuiz/:_id', {
+  name: 'answerQuiz',
+  template: 'answerQuiz', 
+  data: function() {
+    var quizName = this.params._id;
+    return quizzes.findOne({quizname: quizName});
+  }
+});

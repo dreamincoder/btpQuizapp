@@ -8,18 +8,17 @@
         <div class="panel-group" id="accordion">
 
             <div class="faqHeader">Active Quizes</div>
-
-            {{#each quiz}}
+            {{#each activequiz}}
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">   
                             <div class="row">
                                 <div class="col-md-6">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#{{quizName}}">Quiz Name</a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#{{quizName}}">{{quizName}}</a>
                                 </div>
                                 <div class="col-md-6">
                                     <div class = "pull-right">
-                                        <button type="button" class="btn btn-primary btn-xs">Attempt</button>
+                                        <button type="button" class="attemptquiz btn btn-primary btn-xs" value = "{{quizName}}">Attempt</button>
                                     </div>
                                 </div> 
                             </div>   
@@ -27,7 +26,9 @@
                     </div>
                     <div id="{{quizName}}" class="panel-collapse collapse">
                         <div class="panel-body">
-                            Quiz-description 
+                            {{quizDescription}}
+                            <br />
+                            {{instructor}} 
                         </div>
                     </div>
                 </div>
@@ -36,28 +37,32 @@
             <br />
             <br />
 
-            <div class="faqHeader">Past/Attempted Quizes</div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">   
-                        <div class="row">
-                            <div class="col-md-6">
-                                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Quiz Name</a>
-                            </div>
-                            <div class="col-md-6">
-                                <div class = "pull-right">
-                                    <button type="button" class="btn btn-default btn-xs">Open</button>
+            <div class="faqHeader">Attempted Quizes</div>
+            {{#each attemptedquiz}}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">   
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#{{quizName}}">{{quizName}}</a>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class = "pull-right">
+                                        <button type="button" class="btn btn-default btn-xs">Open</button>
+                                    </div>
+                                </div>  
                             </div>  
-                        </div>  
-                    </h4>
-                </div>
-                <div id="collapseThree" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        Quiz-description 
+                        </h4>
+                    </div>
+                    <div id="{{quizName}}" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            {{quizDescription}}
+                            <br />
+                            {{instructor}}
+                        </div>
                     </div>
                 </div>
-            </div>
+            {{/each}}
         </div>
     </div>
 </template>
