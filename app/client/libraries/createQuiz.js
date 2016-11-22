@@ -28,7 +28,7 @@ Template.createQuiz.events({
         //structure to be stored
         var quiz = {
         	'quizContractID': '',
-        	'name': '',
+        	'quizname': '',
         	'description': '',
         	'instructor': '',
         	'start': false,
@@ -54,6 +54,10 @@ Template.createQuiz.events({
         	question['answer'] = questions[i].getElementsByClassName('answer')[0].value;
         	quiz['questions'].push(question);
         }
+        quiz['description'] = document.getElementsByClassName('description')[0].value;
+        quiz['quizname'] = document.getElementsByClassName('quizname')[0].value;
+        quiz['start'] = true;
+        quiz['instructor'] = Meteor.user().username;
         console.log(JSON.stringify(quiz));
 
         Meteor.call('storeQuiz', quiz, function(err, result) {
@@ -61,7 +65,7 @@ Template.createQuiz.events({
         		console.log(err.reason);
         	}
         	else{
-        		Router.go("createQuiz");
+        		Router.go("instructorhome");
         	}
         });
     }
@@ -88,7 +92,7 @@ function addQuestion(){
 
 	new_question = document.createElement("div");
 	new_question.className = "form-group";
-	new_question.innerHTML = '<label class="quesLabel">' + quesNumber + '</label><input class="question" type="text" value="" maxlength="100" placeholder="Enter the question"/>';
+	new_question.innerHTML = '<label class="quesLabel">' + quesNumber + '</label><input class="question form-control" type="text" value="" maxlength="100" placeholder="Enter the question"/>';
 	document.getElementById(mainId).appendChild(new_question);
 
 	new_question = document.createElement("div");
@@ -102,12 +106,12 @@ function addQuestion(){
 	for(var i=0;i<4;i++){
 		var new_option = document.createElement("div");
 		new_option.className = "form-group";
-		new_option.innerHTML = '<label>' + arr[i] +') </label><input class="option" type="text" value="" maxlength="20" placeholder="Option ' + arr[i] +'"/>';
+		new_option.innerHTML = '<label>' + arr[i] +') </label><input class="option form-control" type="text" value="" maxlength="20" placeholder="Option ' + arr[i] +'"/>';
 		document.getElementById(mainId).appendChild(new_option);
 	}
 	var new_option = document.createElement("div");
 	new_option.className = "form-group";
-	new_option.innerHTML = '<label>Answer) </label><input class="answer" type="text" value="" maxlength="20" placeholder="Answer"/>';
+	new_option.innerHTML = '<label>Answer) </label><input class="answer form-control" type="text" value="" maxlength="20" placeholder="Answer"/>';
 	document.getElementById(mainId).appendChild(new_option);
 
 	new_option = document.createElement("div");

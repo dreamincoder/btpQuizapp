@@ -3,8 +3,9 @@ Meteor.subscribe('quizzes');
 // var accounts = new Accounts("abcdefgh");
 // console.log(accounts);
 
-function displayQuiz(){
-	var quiz = quizzes.findOne({});
+// Remove all quizNames and replace with quizIDS
+function displayQuiz(quizName){
+	var quiz = quizzes.findOne({quizname: quizName});
 	var questions = quiz['questions'];
 	
 	console.log(quiz);
@@ -38,11 +39,26 @@ function displayQuiz(){
 Template.answerQuiz.helpers({
 });
 
+Template.answerQuiz.rendered = function() {
+	console.log("on create");
+	var quizName = Router.current().params._id;
+	displayQuiz(quizName);
+}
+
 Template.answerQuiz.events({
-	'click .showquiz': function(event){
+	'click .submitquiz': function(event){
 		event.preventDefault();
-		console.log("event called");
-		displayQuiz();
+		var quizName = Router.current().params._id;
+		var student = Meteor.user().username;
+		console.log(quizName);
+		Meteor.call('submitQuiz', student, quizName, function(err) {
+			if (err) {
+				console.log(err.reason);
+			} else {
+				// document.location.reload(true);
+				Router.go("studenthome");
+			}
+		});
   }
 });
 
