@@ -5,9 +5,11 @@ var createUser = function (username, password, category) {
     console.log("createUser called with " + username + password + category);
     Meteor.call('createNewUser', username, password, category, function (err, result) {
         if (err) {
-        	console.log(err.reason);    
+        	console.log(err.reason);
         } else {
-        	Router.go("login");
+          console.log(err);
+          console.log(result);
+        	if(typeof result !== 'undefined')Router.go("login");
         }
     });
 };
@@ -31,7 +33,7 @@ var loginUser = function (username, password, category) {
 					});
 
         } else {
-        	console.log("Error");
+        	console.log("error");
         }
     });
 };

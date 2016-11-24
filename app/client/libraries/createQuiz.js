@@ -76,7 +76,8 @@ Template.createQuiz.events({
 function updateLabels(){
 	var labels = document.getElementsByClassName('quesLabel');
 	for(var i=0;i<labels.length;i++){
-		labels[i].innerHTML = 'Q' + i+1 + ')';
+        var tmp = i+1;
+		labels[i].innerHTML = 'Q' + tmp + ')';
 	}
 }
 
