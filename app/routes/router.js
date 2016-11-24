@@ -40,3 +40,12 @@ Router.route('/answerQuiz/:_id', {
     return quizzes.findOne({quizname: quizName});
   }
 });
+
+Router.route('/openQuiz/:_id', {
+  name: 'openQuiz',
+  template: 'openQuiz', 
+  data: function() {
+    var quizName = this.params._id;
+    return quizzes.findOne({quizname: quizName});
+  }
+});

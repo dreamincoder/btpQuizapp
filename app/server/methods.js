@@ -2,6 +2,10 @@ Meteor.publish('quizzes', function () {
     return quizzes.find();
 });
 
+Meteor.publish('studentAnswers', function () {
+    return studentAnswers.find();
+});
+
 Meteor.methods({
     createNewUser: function (username, password, category) {
         
@@ -48,8 +52,15 @@ Meteor.methods({
         quizzes.update({_id: entry._id},{$set:{end : true}});
     },
 
-    submitQuiz: function(student, quizName) {
+    submitQuiz: function(student, quizName, answers) {
         var entry = quizzes.findOne({quizname: quizName});
         quizzes.update({_id: entry._id},{$push: {studentsAttempted: student}});
+        var entry = {
+            'quizname' : quizName,
+            'student' : student,
+            'answers' : answers
+        }
+        studentAnswers.insert(entry);
+
     }
 });

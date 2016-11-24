@@ -32,5 +32,10 @@ Template.instructorhome.events({
 				// document.location.reload(true);
 			}
 		});
+	},
+	'click .openquiz': function(event) {
+		var quizName = event.target.value;
+		console.log(quizName);
+		Router.go("openQuiz", {_id: quizName});
 	}
-})
+});

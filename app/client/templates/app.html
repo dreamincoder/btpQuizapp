@@ -1,12 +1,10 @@
 <template name="app">
 	{{#if currentUser}}
-			{{#if isProf currentUser.profile.category}}
-				You are a prof.
-			{{else}}
-				You are a student
-			{{/if}}
+		<h3>Welcome {{currentUser.username}}</h3>
 	{{else}}
-		WElcome to quiz app.. Add some random things here.
+		<h3>Welcome to Quiz App</h3>
 	{{/if}}
-
+	<div class="backgroung_img">
+		<img src="app.jpg">
+	</div>
 </template>

@@ -37,15 +37,17 @@ Template.createQuiz.events({
         	'studentsAttempted': []
         }
 
-        //structure of a single question
-        var question = {
-        	'question': '',
-        	'options': [],
-        	'answer': ''
-        }
+        
 
         for(var i=0;i<questions.length;i++){
-        	question['question'] = questions[i].getElementsByClassName('question')[0].value;
+        	//structure of a single question
+            var question = {
+                'question': '',
+                'options': [],
+                'answer': ''
+            }
+
+            question['question'] = questions[i].getElementsByClassName('question')[0].value;
         	var options = ["A","B","C","D"];
         	for(var j=0;j<4;j++){
         		options[j] = questions[i].getElementsByClassName('option')[j].value;
@@ -74,7 +76,7 @@ Template.createQuiz.events({
 function updateLabels(){
 	var labels = document.getElementsByClassName('quesLabel');
 	for(var i=0;i<labels.length;i++){
-		labels[i].innerHTML = i+1;
+		labels[i].innerHTML = 'Q' + i+1 + ')';
 	}
 }
 
@@ -92,7 +94,7 @@ function addQuestion(){
 
 	new_question = document.createElement("div");
 	new_question.className = "form-group";
-	new_question.innerHTML = '<label class="quesLabel">' + quesNumber + '</label><input class="question form-control" type="text" value="" maxlength="100" placeholder="Enter the question"/>';
+	new_question.innerHTML = '<label class="quesLabel">Q' + quesNumber + ')</label><input class="question form-control" type="text" value="" maxlength="100" placeholder="Enter the question"/>';
 	document.getElementById(mainId).appendChild(new_question);
 
 	new_question = document.createElement("div");
@@ -111,7 +113,7 @@ function addQuestion(){
 	}
 	var new_option = document.createElement("div");
 	new_option.className = "form-group";
-	new_option.innerHTML = '<label>Answer) </label><input class="answer form-control" type="text" value="" maxlength="20" placeholder="Answer"/>';
+	new_option.innerHTML = '<label>Answer) </label><input class="answer form-control" type="text" value="" maxlength="20" placeholder="Answer">';
 	document.getElementById(mainId).appendChild(new_option);
 
 	new_option = document.createElement("div");

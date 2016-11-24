@@ -1,4 +1,5 @@
 Meteor.subscribe('quizzes');
+Meteor.subscribe('studentAnswers');
 
 var createUser = function (username, password, category) {
     console.log("createUser called with " + username + password + category);
@@ -19,7 +20,13 @@ var loginUser = function (username, password, category) {
 						if(error){
 							console.log(error.reason);
 						} else {
-							Router.go("instructorhome");
+							if(category === "student"){
+                Router.go("studenthome");
+              }
+              else {
+                Router.go("instructorhome");
+              }
+              
 						}
 					});
 

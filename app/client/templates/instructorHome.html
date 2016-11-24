@@ -7,7 +7,7 @@
         
         <div class="panel-group" id="accordion">
 
-            <div class="faqHeader">Future Quizes</div>
+            <div class="faqHeader"><label>Future Quizes</label></div>
 
            <!--  {{#each activequiz}}
                 <div class="panel panel-default">
@@ -64,7 +64,7 @@
             <br />
             <br />
 
-            <div class="faqHeader">Active Quizes</div>
+            <div class="faqHeader"><label>Active Quizes</label></div>
             {{#each activequiz}}
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -75,7 +75,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class = "pull-right">
-                                        <button type="button" class="btn btn-default btn-xs">Open</button>
+                                        <button type="button" class="openquiz btn btn-default btn-xs" value="{{quizName}}">Open</button>
                                         <button type="button" class="btn btn-primary btn-xs">Stats</button>
                                         <button type="button" class="endquiz btn btn-danger btn-xs" value="{{quizName}}">End</button>
                                     </div>
@@ -95,7 +95,7 @@
             <br />
             <br />
 
-            <div class="faqHeader">Past Quizes</div>
+            <div class="faqHeader"><label>Past Quizes</label></div>
             {{#each inactivequiz}}
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -106,7 +106,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class = "pull-right">
-                                        <button type="button" class="btn btn-default btn-xs">Open</button>
+                                        <button type="button" class="openquiz btn btn-default btn-xs" value="{{quizName}}">Open</button>
                                         <button type="button" class="btn btn-primary btn-xs">Stats</button>
                                     </div>
                                 </div>  

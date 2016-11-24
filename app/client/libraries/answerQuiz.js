@@ -15,12 +15,12 @@ function displayQuiz(quizName){
 		var mainId = "questions";
 
 		var new_question = document.createElement("div");
-		new_question.className = "form-group";
+		new_question.className = "questionDiv form-group";
 		new_question.innerHTML = '<label>' + i + ') ' + questions[i-1]['question'] + '</label>';
 		document.getElementById(mainId).appendChild(new_question);
 
 		new_question = document.createElement("div");
-		new_question.className = "col-md-offset-1";
+		new_question.className = "question col-md-offset-1";
 		new_question.id = "container-"+i;
 		document.getElementById(mainId).appendChild(new_question);
 
@@ -30,14 +30,12 @@ function displayQuiz(quizName){
 		for(var j=0;j<4;j++){
 			var new_option = document.createElement("div");
 			new_option.className = "radio";
-			new_option.innerHTML = '<label><input type="radio" name="" value="' + arr[j] + '">' + questions[i-1]['options'][j] + '</label>';
+			new_option.innerHTML = '<label><input type="radio" name="question' + i + '" value="' + arr[j] + '">' + questions[i-1]['options'][j] + '</label>';
 			document.getElementById(mainId).appendChild(new_option);
 		}
+		//$('[name=question' + i + ']').prop('checked', false);
 	}
 }
-
-Template.answerQuiz.helpers({
-});
 
 Template.answerQuiz.rendered = function() {
 	console.log("on create");
@@ -51,7 +49,26 @@ Template.answerQuiz.events({
 		var quizName = Router.current().params._id;
 		var student = Meteor.user().username;
 		console.log(quizName);
-		Meteor.call('submitQuiz', student, quizName, function(err) {
+
+		//array containing all questions
+    var questions = document.getElementsByClassName('questionDiv');
+
+    //structure to be stored
+    var answers = [];
+
+    for(var i=1;i<=questions.length;i++){
+    	var tmp = $("input[name=question" + i + "]").is(':checked');
+    	if(tmp == false){
+    		answers.push("");
+    	}
+    	else{
+    		answers.push($("input[name=question" + i + "]:checked").val());
+    	}
+    }
+    console.log(answers);
+
+
+		Meteor.call('submitQuiz', student, quizName, answers, function(err) {
 			if (err) {
 				console.log(err.reason);
 			} else {
@@ -62,4 +79,5 @@ Template.answerQuiz.events({
   }
 });
 
-
+Template.answerQuiz.helpers({
+});
