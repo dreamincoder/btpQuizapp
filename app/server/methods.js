@@ -6,6 +6,10 @@ Meteor.publish('studentAnswers', function () {
     return studentAnswers.find();
 });
 
+Meteor.publish('blockData', function () {
+    return blockData.find();
+});
+
 function alphaToNum(val){
     if(val === 'A')return 1;
     else if(val === 'B')return 2;
@@ -24,9 +28,52 @@ function alphaToNum(val){
 var instrManager = web3.eth.accounts[0];
 var stdntManager = web3.eth.accounts[0] ;
 
-var quizAppContract = web3.eth.contract([{"constant":true,"inputs":[],"name":"getNumQuizzes","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"instructorId","type":"bytes32"}],"name":"addInstructor","outputs":[{"name":"","type":"int256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"id","type":"uint256"}],"name":"validQuizId","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"studentId","type":"bytes32"},{"name":"answers","type":"uint256[]"},{"name":"quizId","type":"uint256"}],"name":"submitAnswers","outputs":[{"name":"","type":"int256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"studentId","type":"bytes32"},{"name":"quizId","type":"uint256"}],"name":"getStudentAnswers","outputs":[{"name":"","type":"uint256[]"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"getInstructors","outputs":[{"name":"","type":"bytes32[]"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"quizId","type":"uint256"},{"name":"instructorId","type":"bytes32"},{"name":"actualAns","type":"uint256[]"}],"name":"createQuiz","outputs":[{"name":"","type":"int256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"instructorId","type":"bytes32"}],"name":"instructorAlreadyExists","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"instructorId","type":"bytes32"},{"name":"quizId","type":"uint256"}],"name":"endQuiz","outputs":[{"name":"","type":"int256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"id","type":"bytes32"}],"name":"checkIfStudent","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"studentId","type":"bytes32"}],"name":"addStudent","outputs":[{"name":"","type":"int256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"studentId","type":"bytes32"},{"name":"quizId","type":"uint256"}],"name":"alreadyAttempted","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"studentId","type":"bytes32"}],"name":"studentAlreadyExists","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"quizId","type":"uint256"}],"name":"getActualAnswers","outputs":[{"name":"","type":"uint256[]"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"getStudents","outputs":[{"name":"","type":"bytes32[]"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"id","type":"bytes32"}],"name":"checkIfInstructor","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"inputs":[{"name":"instrManager","type":"address"},{"name":"stdntManager","type":"address"}],"payable":false,"type":"constructor"}]);
+var quizAppContract = web3.eth.contract([{"constant":true,"inputs":[],"name":"getNumQuizzes","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"instructorId","type":"bytes32"}],"name":"addInstructor","outputs":[{"name":"","type":"int256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"id","type":"uint256"}],"name":"validQuizId","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"studentId","type":"bytes32"},{"name":"answers","type":"uint256[]"},{"name":"quizId","type":"uint256"}],"name":"submitAnswers","outputs":[{"name":"","type":"int256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"studentId","type":"bytes32"},{"name":"quizId","type":"uint256"}],"name":"getStudentAnswers","outputs":[{"name":"","type":"uint256[]"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"getInstructors","outputs":[{"name":"","type":"bytes32[]"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"quizId","type":"uint256"},{"name":"instructorId","type":"bytes32"},{"name":"actualAns","type":"uint256[]"}],"name":"createQuiz","outputs":[{"name":"","type":"int256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"instructorId","type":"bytes32"}],"name":"instructorAlreadyExists","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"instructorId","type":"bytes32"},{"name":"quizId","type":"uint256"}],"name":"endQuiz","outputs":[{"name":"","type":"int256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"id","type":"bytes32"}],"name":"checkIfStudent","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"studentId","type":"bytes32"}],"name":"addStudent","outputs":[{"name":"","type":"int256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"studentId","type":"bytes32"},{"name":"quizId","type":"uint256"}],"name":"alreadyAttempted","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"studentId","type":"bytes32"}],"name":"studentAlreadyExists","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"quizId","type":"uint256"}],"name":"getActualAnswers","outputs":[{"name":"","type":"uint256[]"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"getStudents","outputs":[{"name":"","type":"bytes32[]"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"id","type":"bytes32"}],"name":"checkIfInstructor","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"inputs":[{"name":"instrManager","type":"address"},{"name":"stdntManager","type":"address"}],"payable":false,"type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"quizId","type":"uint256"},{"indexed":false,"name":"studentId","type":"bytes32"},{"indexed":false,"name":"answers","type":"uint256[]"}],"name":"studentAnswered","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"quizId","type":"uint256"},{"indexed":false,"name":"instructorId","type":"bytes32"},{"indexed":false,"name":"actualAnswers","type":"uint256[]"}],"name":"quizCreated","type":"event"}]);
+quizApp = quizAppContract.at("0x73216665573f3ff87fe028a82b50b1317b1e615e");
 
-var quizApp = quizAppContract.at("0x7938327cc6a93720bf7a7d30d1766229d1d6168e");
+globalEntry = 1;
+quizApp.studentAnswered({}).watch( Meteor.bindEnvironment( function(e, log) {
+    if(!e) {
+        globalEntry = log;
+
+        var answersArr = [];
+        for(var i=0;i<log.args.answers.length;i++){
+            answersArr.push(log.args.answers[i]['c'][0]);
+        }
+
+        var entry = {
+            blockNumber: log.blockNumber,
+            transactionHash: log.transactionHash,
+            address: log.address,
+            studentId: (web3.toAscii(log.args.studentId)).replace(/\0/g,''),
+            quizId: log.args.quizId['c'][0],
+            answers: answersArr
+        }
+        blockData.insert(entry);
+    }
+}));
+
+quizApp.quizCreated({}).watch( Meteor.bindEnvironment( function(e, log) {
+    if(!e) {
+        globalEntry = log;
+
+        var answersArr = [];
+        for(var i=0;i<log.args.actualAnswers.length;i++){
+            answersArr.push(log.args.actualAnswers[i]['c'][0]);
+        }
+
+        var entry = {
+            blockNumber: log.blockNumber,
+            transactionHash: log.transactionHash,
+            address: log.address,
+            instructorId: (web3.toAscii(log.args.instructorId)).replace(/\0/g,''),
+            quizId: log.args.quizId['c'][0],
+            answers: answersArr
+        }
+        blockData.insert(entry);
+    }
+}));
+
 
 Meteor.methods({
     createNewUser: function (username, password, category) {
@@ -122,8 +169,9 @@ Meteor.methods({
     },
 
     submitQuiz: function(student, quizName, answers) {
-        var entry = quizzes.findOne({quizname: quizName});
-        quizzes.update({_id: entry._id},{$push: {studentsAttempted: student}});
+        var quiz = quizzes.findOne({quizname: quizName});
+        quizzes.update({_id: quiz._id},{$push: {studentsAttempted: student}});
+        
         var updatedEntry = {
             'quizname' : quizName,
             'student' : student,
@@ -131,13 +179,16 @@ Meteor.methods({
         }
         studentAnswers.insert(updatedEntry);
 
-        var questions = quiz['questions'];
-    		var answersNew = [];
+		var answersNew = [];
 
-    		for(var i=0;i<questions.length;i++){
-    			answersNew.push(alphaToNum(questions[i]['answer']));
-    		}
+		for(var i=0;i<answers.length;i++){
+			answersNew.push(alphaToNum(answers[i]));
+		}
 
-    		quizApp.submitAnswers(student, answersNew, entry['quizContractID'], {from: web3.eth.accounts[0], gas: 500000});
+		quizApp.submitAnswers(student, answersNew, quiz['quizContractID'], {from: web3.eth.accounts[0], gas: 500000});
+    },
+
+    storeBlockData: function(blockdata){
+        blockData.insert(blockdata);
     }
 });

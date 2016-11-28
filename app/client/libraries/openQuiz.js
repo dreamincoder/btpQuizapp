@@ -90,5 +90,23 @@ Template.openQuiz.events({
 	}
 });
 
-Template.answerQuiz.helpers({
+Template.openQuiz.helpers({
+	currentBlock: function () {
+		var quizName = Router.current().params._id;
+		var quiz = quizzes.findOne({quizname: quizName});
+		var id = quiz['quizContractID'];
+		var ret;
+		if(Meteor.user().profile['category'] === "student"){
+			var currblock = blockData.find({quizId:id, studentId: Meteor.user().username}).fetch()[0];
+			delete currblock._id;
+	    ret = JSON.stringify(currblock, null, 2);
+		}
+		else{
+			var currblock = blockData.find({quizId:id, instructorId: Meteor.user().username}).fetch()[0];
+			delete currblock._id;
+	    ret = JSON.stringify(currblock, null, 2);
+		}
+		
+		return ret;
+   },
 });

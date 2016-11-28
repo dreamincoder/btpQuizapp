@@ -1,5 +1,6 @@
 Meteor.subscribe('quizzes');
 Meteor.subscribe('studentAnswers');
+Meteor.subscribe('blockData');
 
 var createUser = function (username, password, category) {
     console.log("createUser called with " + username + password + category);
@@ -9,7 +10,7 @@ var createUser = function (username, password, category) {
         } else {
           console.log(err);
           console.log(result);
-        	if(typeof result !== 'undefined')Router.go("login");
+        	Router.go("login");
         }
     });
 };

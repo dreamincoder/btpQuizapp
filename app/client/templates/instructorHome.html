@@ -7,7 +7,7 @@
         
         <div class="panel-group" id="accordion">
 
-            <div class="faqHeader"><label>Future Quizes</label></div>
+  <!--           <div class="faqHeader"><label>Future Quizes</label></div> -->
 
            <!--  {{#each activequiz}}
                 <div class="panel panel-default">
@@ -35,7 +35,7 @@
                     </div>
                 </div>
             {{/each}} -->
-            <div class="panel panel-default">
+            <!-- <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">   
                         <div class="row">
@@ -58,11 +58,11 @@
                         Quiz-description 
                     </div>
                 </div>
-            </div>
+            </div> -->
 
 
-            <br />
-            <br />
+            <!-- <br />
+            <br /> -->
 
             <div class="faqHeader"><label>Active Quizes</label></div>
             {{#each activequiz}}
@@ -85,7 +85,7 @@
                     </div>
                     <div id="{{quizName}}" class="panel-collapse collapse">
                         <div class="panel-body">
-                            {{quizDescription}}
+                            <label>Descrition:</label> {{quizDescription}}
                         </div>
                     </div>
                 </div>
@@ -115,7 +115,7 @@
                     </div>
                     <div id="{{quizName}}" class="panel-collapse collapse">
                         <div class="panel-body">
-                            {{quizDescription}} 
+                            <label>Descrition:</label> {{quizDescription}} 
                         </div>
                     </div>
                 </div>

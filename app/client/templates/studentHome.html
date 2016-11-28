@@ -7,7 +7,7 @@
         
         <div class="panel-group" id="accordion">
 
-            <div class="faqHeader">Active Quizes</div>
+            <div class="faqHeader"><label>Active Quizes</label></div>
             {{#each activequiz}}
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -26,9 +26,9 @@
                     </div>
                     <div id="{{quizName}}" class="panel-collapse collapse">
                         <div class="panel-body">
-                            {{quizDescription}}
+                            <label>Descrition:</label> {{quizDescription}}
                             <br />
-                            {{instructor}} 
+                            <label>Instructor:</label> {{instructor}} 
                         </div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
             <br />
             <br />
 
-            <div class="faqHeader">Attempted Quizes</div>
+            <div class="faqHeader"><label>Attempted Quizes</label></div>
             {{#each attemptedquiz}}
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -56,9 +56,9 @@
                     </div>
                     <div id="{{quizName}}" class="panel-collapse collapse">
                         <div class="panel-body">
-                            {{quizDescription}}
+                            <label>Descrition:</label> {{quizDescription}}
                             <br />
-                            {{instructor}}
+                            <label>Instructor:</label> {{instructor}}
                         </div>
                     </div>
                 </div>

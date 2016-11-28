@@ -13,14 +13,21 @@
 			        <li><a href="{{pathFor route='createQuiz'}}">Create Quiz</a></li>
 			      {{else}}
 			      	<li><a href="{{pathFor route='studenthome'}}">Home</a></li>
-			        <li><a href="#">Quizzes</a></li>
-			        <li><a href="#">Check</a></li>
+			        <!-- <li><a href="#">Quizzes</a></li>
+			        <li><a href="#">Check</a></li> -->
 			      {{/if}}
 		      </ul>
 		  	{{/if}}
 
 	      <ul class="nav navbar-nav navbar-right">
+	      	
 	        {{#if currentUser}}
+	        	<li><a href="#">{{currentUser.username}}</a></li>
+	        	{{#if isProf currentUser.profile.category}}
+		        	<li><a href="#">Logged in as Instructor</a></li>
+		        {{else}}
+		        	<li><a href="#">Logged in as Student</a></li>
+		        {{/if}}
 						<li><a href="#" class="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 					{{else}}
 						<li><a href="{{pathFor route='login'}}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
